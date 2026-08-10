@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>五子棋 · 星穹连珠</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+
+  <div id="ui">
+    <!-- 封面 -->
+    <div id="cover" class="screen">
+      <div class="cover-inner">
+        <div class="title-block">
+          <div class="title-kicker">GOMOKU · NEXUS</div>
+          <h1 class="title">星穹连珠</h1>
+          <p class="subtitle">每局随机主题 · 空格丝滑切换 · 连招特效频发</p>
+        </div>
+        <div class="cover-buttons">
+          <button id="btnPvp" class="big-btn primary">👥 玩家对战</button>
+          <button id="btnVsAi" class="big-btn">🤖 人机对战</button>
+        </div>
+        <div class="cover-actions">
+          <button id="btnSettings" class="ghost-btn">⚙ 设置</button>
+        </div>
+        <div id="aiConfig" class="config hidden">
+          <div class="config-row">
+            <span class="config-label">难度</span>
+            <div class="seg" id="segDifficulty">
+              <button data-value="easy" class="active">简单</button>
+              <button data-value="normal">普通</button>
+              <button data-value="hard">困难</button>
+            </div>
+          </div>
+          <div class="config-row">
+            <span class="config-label">先后手</span>
+            <div class="seg" id="segSide">
+              <button data-value="0" class="active">我先手 · 黑</button>
+              <button data-value="1">AI 先手 · 黑</button>
+            </div>
+          </div>
+          <div class="config-actions">
+            <button id="btnAiStart" class="big-btn primary small">开始对局</button>
+            <button id="btnAiBack" class="ghost-btn">返回</button>
+          </div>
+        </div>
+        <div id="settingsPanel" class="config hidden">
+          <div class="config-row">
+            <span class="config-label">自动换景</span>
+            <div class="seg" id="segAuto">
+              <button data-value="0" class="active">关</button>
+              <button data-value="1">开</button>
+            </div>
+          </div>
+          <div class="config-row">
+            <span class="config-label">切换间隔</span>
+            <input id="sliderInterval" type="range" min="8" max="120" step="2" value="30">
+            <span id="intervalVal" class="range-val">30 秒</span>
+          </div>
+          <div class="config-row">
+            <span class="config-label">动画时长</span>
+            <input id="sliderDuration" type="range" min="0.5" max="2.5" step="0.1" value="1.2">
+            <span id="durationVal" class="range-val">1.2 秒</span>
+          </div>
+          <div class="config-actions">
+            <button id="btnSettingsClose" class="ghost-btn">完成</button>
+          </div>
+        </div>
+        <div class="cover-footer">
+          <span>15 × 15 标准棋盘</span>
+          <span class="dot">·</span>
+          <span>场景与贴图均为程序实时创作</span>
+        </div>
+      </div>
+      <button id="btnMuteCover" class="icon-btn top-right" title="声音开关">🔊</button>
+    </div>
+
+    <!-- 对局 HUD -->
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hud-left">
+          <button id="btnMenu" class="chip-btn">🏠 菜单</button>
+          <button id="btnRestart" class="chip-btn">↺ 重开</button>
+        </div>
+        <div class="hud-center">
+          <div id="turnChip" class="chip turn-chip">黑方回合</div>
+          <div id="themeChip" class="chip theme-chip">星海霓虹</div>
+        </div>
+        <div class="hud-right">
+          <button id="btnMuteGame" class="chip-btn">🔊</button>
+        </div>
+      </div>
+      <div class="hud-bottom">
+        <div id="comboChip" class="combo-chip hidden">✦ 连击 ×1</div>
+        <div class="hud-bottom-right">
+          <button id="btnAuto" class="chip-btn">⏱ 自动:关</button>
+          <div class="hint-chip">空格 切换场景</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 结算 -->
+    <div id="winOverlay" class="screen hidden">
+      <div class="win-panel">
+        <div id="winEmblem" class="win-emblem">🏆</div>
+        <h2 id="winTitle">黑方获胜</h2>
+        <div id="winMeta" class="win-meta"></div>
+        <div class="win-actions">
+          <button id="btnAgain" class="big-btn primary small">再来一局</button>
+          <button id="btnBackWin" class="ghost-btn">返回菜单</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toasts" class="toasts"></div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/themes.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/cover.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

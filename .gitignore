@@ -1,0 +1,11 @@
+# OS files
+Thumbs.db
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# Local web servers
+server.log
+tunnel.log
