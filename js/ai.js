@@ -40,10 +40,10 @@
           worker.onmessage = function (e) {
             var d = e.data || {};
             if (pending[d.id]) {
-              var done = pending[d.id];
+              var item = pending[d.id];
               delete pending[d.id];
-              if (done.timer) clearTimeout(done.timer);
-              done(d.move || null);
+              if (item.timer) clearTimeout(item.timer);
+              item.resolve(d.move || null);
             }
           };
           worker.onerror = function () {
