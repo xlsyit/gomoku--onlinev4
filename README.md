@@ -77,7 +77,7 @@ Merged build of the original Gomoku Nexus and the online edition. It keeps every
 ## 项目结构 / Structure
 
 ```text
-gomoku--onlinev4/
+gomoku-nexus-onlinev4/
 ├── index.html              游戏页（本地对战、设置、结算 UI）
 ├── online.html             在线对战大厅独立页面
 ├── styles.css              界面样式 + 三套 UI 主题
@@ -113,7 +113,7 @@ gomoku--onlinev4/
 环境要求：Node.js 22+、npm。
 
 ```bash
-cd gomoku--onlinev4/server
+cd gomoku-nexus-onlinev4/server
 npm install
 node index.js
 ```
