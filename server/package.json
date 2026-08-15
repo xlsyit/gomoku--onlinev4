@@ -1,0 +1,17 @@
+{
+  "name": "gomoku-nexus-online-v4-server",
+  "version": "4.0.0",
+  "description": "Gomoku Nexus Online v4 multiplayer server",
+  "main": "index.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "socket.io": "^4.8.1"
+  }
+}

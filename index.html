@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>五子棋 · 星穹连珠</title>
+  <title>五子棋 · 星穹连珠 v4</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,16 +15,18 @@
     <div id="cover" class="screen">
       <div class="cover-inner">
         <div class="title-block">
-          <div class="title-kicker">GOMOKU · NEXUS</div>
+          <div class="title-kicker">GOMOKU · NEXUS · ONLINE V4</div>
           <h1 class="title">星穹连珠</h1>
-          <p class="subtitle">每局随机主题 · 空格丝滑切换 · 连招特效频发</p>
+          <p class="subtitle">本地人机 · 实时对战 · AI v4 加强</p>
         </div>
         <div class="cover-buttons">
           <button id="btnPvp" class="big-btn primary">👥 玩家对战</button>
           <button id="btnVsAi" class="big-btn">🤖 人机对战</button>
+          <button id="btnOnline" class="big-btn">🌐 在线对战</button>
         </div>
         <div class="cover-actions">
           <button id="btnSettings" class="ghost-btn">⚙ 设置</button>
+          <button id="btnLeaderboard" class="ghost-btn">🏆 排行榜</button>
         </div>
         <div id="aiConfig" class="config hidden">
           <div class="config-row">
@@ -42,12 +44,122 @@
               <button data-value="1">AI 先手 · 黑</button>
             </div>
           </div>
+          <div class="config-row">
+            <span class="config-label">棋盘大小</span>
+            <div class="seg" id="segAiBoardSize">
+              <button data-value="9">9</button>
+              <button data-value="13">13</button>
+              <button data-value="15" class="active">15</button>
+              <button data-value="19">19</button>
+            </div>
+          </div>
+          <div class="config-row">
+            <span class="config-label">对局规则</span>
+            <div class="seg" id="segAiRule">
+              <button data-value="free" class="active">自由</button>
+              <button data-value="renju">职业禁手</button>
+              <button data-value="folk">民间禁手</button>
+            </div>
+          </div>
+          <div id="aiRuleHint" class="rule-hint">自由规则：无禁手，五连即胜。</div>
           <div class="config-actions">
             <button id="btnAiStart" class="big-btn primary small">开始对局</button>
             <button id="btnAiBack" class="ghost-btn">返回</button>
           </div>
         </div>
+        <div id="onlineConfig" class="screen hidden">
+          <div class="online-shell">
+            <header class="online-header">
+              <button id="btnOnlineBack" class="chip-btn">← 返回</button>
+              <div class="online-title-block">
+                <h2 class="online-title">在线对战大厅</h2>
+                <div id="onlineConnectHint" class="online-connect-hint">正在连接服务器...</div>
+              </div>
+            </header>
+            <div class="online-body">
+              <section class="online-panel">
+                <div class="panel-title">账号</div>
+                <div class="config-row">
+                  <span class="config-label">昵称</span>
+                  <input id="inputNickname" type="text" class="text-input" placeholder="注册/登录昵称" maxlength="12" autocomplete="off">
+                </div>
+                <div class="config-row">
+                  <span class="config-label">密码</span>
+                  <input id="inputPassword" type="password" class="text-input" placeholder="设置或输入密码" maxlength="32" autocomplete="off">
+                </div>
+                <div class="config-actions">
+                  <button id="btnRegister" class="big-btn primary small">注册</button>
+                  <button id="btnLogin" class="big-btn small">登录</button>
+                </div>
+              </section>
+              <section class="online-panel">
+                <div class="panel-title">创建 / 加入</div>
+                <div class="config-row">
+                  <span class="config-label">房间可见性</span>
+                  <div class="seg" id="segRoomPrivacy">
+                    <button data-value="1" class="active">公开房间</button>
+                    <button data-value="0">私密房间</button>
+                  </div>
+                </div>
+                <div class="config-actions">
+                  <button id="btnCreateRoom" class="big-btn primary small" disabled>创建房间</button>
+                </div>
+                <div class="config-row">
+                  <span class="config-label">私密房间码</span>
+                  <input id="inputRoomCode" type="text" class="text-input room-code-input" placeholder="输入6位房间码" maxlength="6" style="text-transform:uppercase" autocomplete="off">
+                </div>
+                <div class="config-actions">
+                  <button id="btnJoinRoom" class="big-btn small" disabled>加入房间</button>
+                </div>
+              </section>
+              <section class="online-panel lobby-panel">
+                <div class="panel-title">公开房间 <span id="roomCount" class="room-count"></span></div>
+                <div id="lobbyGrid" class="lobby-grid">
+                  <div class="lb-empty">加载中...</div>
+                </div>
+              </section>
+            </div>
+            <div id="roomStatus" class="room-status hidden"></div>
+          </div>
+        </div>
+        <div id="leaderboardPanel" class="config hidden leaderboard-panel">
+          <div class="lb-title">🏆 排行榜</div>
+          <div id="lbList" class="lb-list">
+            <div class="lb-empty">加载中...</div>
+          </div>
+          <div class="config-actions" style="margin-top:8px">
+            <button id="btnLbClose" class="ghost-btn">关闭</button>
+          </div>
+        </div>
         <div id="settingsPanel" class="config hidden">
+          <div class="settings-section">对局设置</div>
+          <div class="config-row">
+            <span class="config-label">棋盘大小</span>
+            <div class="seg" id="segBoardSize">
+              <button data-value="9">9</button>
+              <button data-value="13">13</button>
+              <button data-value="15" class="active">15</button>
+              <button data-value="19">19</button>
+            </div>
+          </div>
+          <div class="config-row">
+            <span class="config-label">对局规则</span>
+            <div class="seg" id="segRule">
+              <button data-value="free" class="active">自由</button>
+              <button data-value="renju">职业禁手</button>
+              <button data-value="folk">民间禁手</button>
+            </div>
+          </div>
+          <div id="ruleHint" class="rule-hint">自由规则：无禁手，五连即胜。</div>
+          <div class="config-row">
+            <span class="config-label">UI 主题</span>
+            <div class="seg" id="segUiTheme">
+              <button data-value="neon" class="active">星云</button>
+              <button data-value="paper">纸墨</button>
+              <button data-value="terminal">终端</button>
+            </div>
+          </div>
+          <div class="settings-section">换景设置</div>
           <div class="config-row">
             <span class="config-label">自动换景</span>
             <div class="seg" id="segAuto">
@@ -108,7 +220,13 @@
         <div id="winEmblem" class="win-emblem">🏆</div>
         <h2 id="winTitle">黑方获胜</h2>
         <div id="winMeta" class="win-meta"></div>
-        <div class="win-actions">
+        <div id="winRematchArea" class="win-rematch hidden">
+          <div id="winRematchStatus" class="win-rematch-status"></div>
+          <div class="win-actions">
+            <button id="btnRematch" class="big-btn primary small">请求再战</button>
+          </div>
+        </div>
+        <div class="win-actions" id="winNormalActions">
           <button id="btnAgain" class="big-btn primary small">再来一局</button>
           <button id="btnBackWin" class="ghost-btn">返回菜单</button>
         </div>
@@ -118,12 +236,15 @@
     <div id="toasts" class="toasts"></div>
   </div>
 
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/themes.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/particles.js"></script>
   <script src="js/effects.js"></script>
+  <script src="js/ai-core.js"></script>
   <script src="js/ai.js"></script>
+  <script src="js/network.js"></script>
   <script src="js/game.js"></script>
   <script src="js/cover.js"></script>
   <script src="js/main.js"></script>

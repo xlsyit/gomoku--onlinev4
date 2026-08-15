@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>星穹连珠 · 在线对战大厅</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="online-page">
+  <main class="online-page-shell">
+    <header class="online-header">
+      <a href="index.html" class="chip-btn" id="btnOnlineBack">← 返回</a>
+      <div class="online-title-block">
+        <h1 class="online-title">在线对战大厅</h1>
+        <div id="onlineConnectHint" class="online-connect-hint">正在连接服务器...</div>
+      </div>
+    </header>
+
+    <div class="online-body">
+      <section class="online-panel">
+        <div class="panel-title">账号</div>
+        <div class="config-row">
+          <span class="config-label">昵称</span>
+          <input id="inputNickname" type="text" class="text-input" placeholder="注册/登录昵称" maxlength="12" autocomplete="off">
+        </div>
+        <div class="config-row">
+          <span class="config-label">密码</span>
+          <input id="inputPassword" type="password" class="text-input" placeholder="设置或输入密码" maxlength="32" autocomplete="off">
+        </div>
+        <div class="config-actions">
+          <button id="btnRegister" class="big-btn primary small">注册</button>
+          <button id="btnLogin" class="big-btn small">登录</button>
+        </div>
+      </section>
+
+      <section class="online-panel">
+        <div class="panel-title">创建 / 加入</div>
+        <div class="config-row">
+          <span class="config-label">棋盘大小</span>
+          <div class="seg" id="segOnlineBoardSize">
+            <button data-value="9">9</button>
+            <button data-value="13">13</button>
+            <button data-value="15" class="active">15</button>
+            <button data-value="19">19</button>
+          </div>
+        </div>
+        <div class="config-row">
+          <span class="config-label">对局规则</span>
+          <div class="seg" id="segOnlineRule">
+            <button data-value="free" class="active">自由</button>
+            <button data-value="renju">职业禁手</button>
+            <button data-value="folk">民间禁手</button>
+          </div>
+        </div>
+        <div id="onlineRuleHint" class="rule-hint">自由规则：无禁手，五连即胜。</div>
+        <div class="config-row">
+          <span class="config-label">房间可见性</span>
+          <div class="seg" id="segRoomPrivacy">
+            <button data-value="1" class="active">公开房间</button>
+            <button data-value="0">私密房间</button>
+          </div>
+        </div>
+        <div class="config-actions">
+          <button id="btnCreateRoom" class="big-btn primary small" disabled>创建房间</button>
+        </div>
+        <div class="config-row">
+          <span class="config-label">私密房间码</span>
+          <input id="inputRoomCode" type="text" class="text-input room-code-input" placeholder="输入6位房间码" maxlength="6" style="text-transform:uppercase" autocomplete="off">
+        </div>
+        <div class="config-actions">
+          <button id="btnJoinRoom" class="big-btn small" disabled>加入房间</button>
+        </div>
+      </section>
+
+      <section class="online-panel lobby-panel">
+        <div class="panel-title">公开房间 <span id="roomCount" class="room-count"></span></div>
+        <div id="lobbyGrid" class="lobby-grid">
+          <div class="lb-empty">加载中...</div>
+        </div>
+      </section>
+    </div>
+
+    <div id="roomStatus" class="room-status hidden"></div>
+  </main>
+
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/network.js"></script>
+  <script src="js/online.js"></script>
+</body>
+</html>
